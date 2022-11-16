@@ -1,4 +1,5 @@
 module kernels
+! В данном модуле собраны различные ядра вейвлетов с их фурье образами
 use my_prec
 implicit none
 

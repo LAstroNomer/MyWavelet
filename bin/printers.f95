@@ -1,10 +1,14 @@
 module printer
+! Данный модуль предназначен для ввода-вывода некоторых массивов и таблиц
+! Данные функции создавались для конкретных задач и особой общностью не обладают
+
 use my_prec
 implicit none
 
 contains
 !---------------------------------------------------------
 subroutine print_table_xy(t, x, nu, dft, xq, fname)
+    ! Подпрограмма выводит в файл fname данные в аргументаъ массивы
     use my_prec
     real(mp) t(:), x(:), nu(:), dft(:), xq(:)
     integer i
@@ -17,6 +21,7 @@ end subroutine
 !--------------------------------------------------------
 
 subroutine print_data(data_, amin, na, da, bmin,  nb, db, fname)
+    ! Данная функция печатает таблицу с осями. подробности смотри в спецификации для splot gnuplota
     use my_prec
 
     character(20)  fname

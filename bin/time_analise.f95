@@ -5,7 +5,7 @@ implicit none
 
 contains
 !----------------------------------------------------------------------
-subroutine wavelet(t, x, amin, da, na, bmin, db, nb, func, B0, wav)
+subroutine wavelet(t, x, amin, da, na, bmin, db, nb, func, alpha, B0, wav)
     use my_prec
 
     interface
@@ -15,32 +15,33 @@ subroutine wavelet(t, x, amin, da, na, bmin, db, nb, func, B0, wav)
 
     integer     na
     integer     nb
-    integer     i
-    integer     k
+    integer     i   /0/
+    integer     k   /0/
+    integer     ier /0/ 
 
-    real(mp)     t(:)   !
-    real(mp)     x(:)   ! 
-    real(mp)     da     !
-    real(mp)     db     !
-    real(mp)     B0     !
-    real(mp)     ai     !
-    real(mp)     bi     !
-    real(mp)     amin   !
-    real(mp)     bmin   !
-    real(mp)     alpha  !
-    real(mp)     n      !
+    real(mp)     t(:)           ! Временная сетка
+    real(mp)     x(:)           ! Значения ряда
+    real(mp)     da             ! Шаг параметра а
+    real(mp)     db             ! Шаг параметра b
+    real(mp)     ai             ! текущее занчение
+    real(mp)     bi             ! текущее значение
+    real(mp)     amin           ! 
+    real(mp)     bmin           !
+    real(mp)     alpha          ! Параметр вейвлета Морле
+    real(mp)     B0             ! Параметр вейвлета Морле
+    real(mp)     n      /0.d0/  ! Коэф-т вейвлета
 
     complex(mp),allocatable, dimension(:) :: psi
-    complex(mp),allocatable, dimension(:,:) :: wav
+    complex(mp)  wav(0: na-1, 0:nb-1)
 
 
-    allocate(psi(0 : size(t)-1), wav(0: na-1, 0 : nb-1))
+    allocate(psi(0 : size(t)-1), stat=ier)
+    psi = 0
     wav = 0
-    alpha = sqrt(2.d0)
 
-    do i = 1, na-1
+    do i = 1, na-1          ! i=0 сильно шумит ???
         ai = amin + i*da
-        do k=0, nb-1
+        do k = 0, nb-1
             bi = bmin + db*k
             psi = func((t-bi)/ai)
             n = sum(exp(-((t-bi)/ai)**2/B0))
@@ -50,7 +51,8 @@ subroutine wavelet(t, x, amin, da, na, bmin, db, nb, func, B0, wav)
 end subroutine
 !----------------------------------------------------------------------
 
-function z_arr(t, ai, bi, B0) 
+function z_arr(t, ai, bi, B0)
+    ! Функция расчета порогового значения Z
     use my_prec
     implicit none
     real(mp) t(:), ai, bi, B0, z_arr, n
