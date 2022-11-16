@@ -54,4 +54,9 @@ test_auto: built
 		./test/auto
 		./wavelet
 		gnuplot draw/*.gnu
-		
+
+ps2pdf:
+		ps2pdf images/conture.eps images/conture.pdf
+		ps2pdf images/row.eps images/row.pdf
+		ps2pdf images/scal.eps images/scal.pdf
+		ps2pdf images/maps.eps images/maps.pdf
