@@ -25,30 +25,30 @@
 4. test\_switch   --- переключение двух синусоид
 5. test\_auto     --- авторегрессионая модель 
 
-Запуск выполняется при помощи make-файла. Ниже возможные опции.
+## Запуск выполняется при помощи make-файла. Ниже возможные опции.
 
 Сборка исполнимого файла wavelet
 
-'''$ make built 
-'''
+- $ make built 
+
 Запуск алгоритма со своими данными
-'''$make run
-'''
+- $make run
+
 Удаление объектников из директории
-$ make clean
+- $ make clean
 
 Запуск теста 1)
-$make test_sin
+- $make test\_sin
 
 Запуск теста 2)
-$make test_2sin
+- $make test\_2sin
 
 Запуск теста 3)
-$make test_movesin
+- $make test\_movesin
 
 Запуск теста 4)
-$make test_switch
+- $make test\_switch
 
 Запуск теста 5)
-$make test_auto
+- $make test\_auto
 
